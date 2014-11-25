@@ -55,6 +55,11 @@ Interface framework design is inspired by NoSQL database. The data is layout in 
 Each row is identified by a unique key, each row is a bucket of <key, value> pair.
 Each bucket holds 'n' pairs defined by user. The keys within a bucket respects a LRU eviction policy.
 
+Eviction
+========
+
+For a high performant LRU the eviction strategy plays a very significant role. Basic operarions performed during an eviction involves: updating backend-list candidate removal as well as update to front-end hashmap. In-order to shield active I/O performance impact due to eviction, HpLRU designed a novel mechanism. It uses back-ground task (leveraging configurable threadpool threads) to perform eviction based on user-defined "water highmarks". On an insert if the highmark are breached systems schedules eviction thread, which attempts to clean up least recently evicted keys and bring space consumption down below specified highmarks.
+
 Build
 ====
 
