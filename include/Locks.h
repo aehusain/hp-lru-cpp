@@ -28,12 +28,13 @@
 namespace lock
 {
 
-typedef boost::shared_mutex ReadWriteMutex;
-typedef boost::shared_lock<ReadWriteMutex> ReadLock;
-typedef boost::unique_lock<ReadWriteMutex> WriteLock;
+using ReadWriteMutex = boost::shared_mutex;
+using ReadLock = boost::shared_lock<ReadWriteMutex>;
+using WriteLock = boost::unique_lock<ReadWriteMutex>;
 
-typedef std::mutex Mutex;
-typedef std::lock_guard<std::mutex> GuardLock;
+using Mutex = std::mutex;
+using MutexLock = std::unique_lock<std::mutex>;
+using GuardLock = std::lock_guard<std::mutex>;
 
 class SpinLock
 {

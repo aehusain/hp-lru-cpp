@@ -11298,7 +11298,7 @@ CC="$lt_save_CC"
 ac_config_headers="$ac_config_headers library_config.h"
 
 
-COMPILER_FLAGS="-g3"
+COMPILER_FLAGS="-g3 -g"
 LINKER_FLAGS=""
 LIBHPLRU_STATIC_DEPS=""
 

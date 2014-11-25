@@ -38,7 +38,7 @@ AM_LDFLAGS =
 libhplru_la_CPPFLAGS = -shared $(AM_CPPFLAGS)
 libhplru_la_CXXFLAGS =  $(AM_CXXFLAGS)
 libhplru_la_LDFLAGS = -module -no-undefined -avoid-version -shared $(BOOST_LIBS) $(LIBS) $(AM_LDFLAGS)
-libhplru_la_SOURCES = src/HpLru.cpp util/ThreadPool.cpp
+libhplru_la_SOURCES = src/HpLru.cpp util/ThreadPool.cpp util/Latch.cpp
 
 include $(srcdir)/test/Makefile.am
 

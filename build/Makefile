@@ -87,7 +87,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libhplru_la_LIBADD =
 am_libhplru_la_OBJECTS = libhplru_la-HpLru.lo \
-	libhplru_la-ThreadPool.lo
+	libhplru_la-ThreadPool.lo libhplru_la-Latch.lo
 libhplru_la_OBJECTS = $(am_libhplru_la_OBJECTS)
 libhplru_la_LINK = $(LIBTOOL) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(libhplru_la_CXXFLAGS) \
@@ -142,13 +142,13 @@ AUTOMAKE = ${SHELL} /home/aehusain/bismillah/HpLRU/missing --run automake-1.11
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g3
+CFLAGS = -g3 -g
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
 CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
-CXXFLAGS = -g3
+CXXFLAGS = -g3 -g
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -272,7 +272,7 @@ AM_LDFLAGS =
 libhplru_la_CPPFLAGS = -shared $(AM_CPPFLAGS)
 libhplru_la_CXXFLAGS = $(AM_CXXFLAGS)
 libhplru_la_LDFLAGS = -module -no-undefined -avoid-version -shared $(BOOST_LIBS) $(LIBS) $(AM_LDFLAGS)
-libhplru_la_SOURCES = src/HpLru.cpp util/ThreadPool.cpp
+libhplru_la_SOURCES = src/HpLru.cpp util/ThreadPool.cpp util/Latch.cpp
 testdir = $(srcdir)/test/src
 test_LIBS = -lboost_system -lboost_thread libhplru.la
 testHpLRU_SOURCES = $(testdir)/testHpLRU.cpp
@@ -433,6 +433,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/libhplru_la-HpLru.Plo
+include ./$(DEPDIR)/libhplru_la-Latch.Plo
 include ./$(DEPDIR)/libhplru_la-ThreadPool.Plo
 include ./$(DEPDIR)/testHpLRU.Po
 
@@ -470,6 +471,13 @@ libhplru_la-ThreadPool.lo: util/ThreadPool.cpp
 #	source='util/ThreadPool.cpp' object='libhplru_la-ThreadPool.lo' libtool=yes \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhplru_la_CPPFLAGS) $(CPPFLAGS) $(libhplru_la_CXXFLAGS) $(CXXFLAGS) -c -o libhplru_la-ThreadPool.lo `test -f 'util/ThreadPool.cpp' || echo '$(srcdir)/'`util/ThreadPool.cpp
+
+libhplru_la-Latch.lo: util/Latch.cpp
+	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhplru_la_CPPFLAGS) $(CPPFLAGS) $(libhplru_la_CXXFLAGS) $(CXXFLAGS) -MT libhplru_la-Latch.lo -MD -MP -MF $(DEPDIR)/libhplru_la-Latch.Tpo -c -o libhplru_la-Latch.lo `test -f 'util/Latch.cpp' || echo '$(srcdir)/'`util/Latch.cpp
+	$(am__mv) $(DEPDIR)/libhplru_la-Latch.Tpo $(DEPDIR)/libhplru_la-Latch.Plo
+#	source='util/Latch.cpp' object='libhplru_la-Latch.lo' libtool=yes \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(LIBTOOL)  --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libhplru_la_CPPFLAGS) $(CPPFLAGS) $(libhplru_la_CXXFLAGS) $(CXXFLAGS) -c -o libhplru_la-Latch.lo `test -f 'util/Latch.cpp' || echo '$(srcdir)/'`util/Latch.cpp
 
 testHpLRU.o: $(testdir)/testHpLRU.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT testHpLRU.o -MD -MP -MF $(DEPDIR)/testHpLRU.Tpo -c -o testHpLRU.o `test -f '$(testdir)/testHpLRU.cpp' || echo '$(srcdir)/'`$(testdir)/testHpLRU.cpp

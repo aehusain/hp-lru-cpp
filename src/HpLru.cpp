@@ -103,6 +103,22 @@ CacheMgr::lookupKey(const std::string &row, key_type key)
     return it->lookup(key);
 }
 
+uint64_t
+CacheMgr::size(const std::string &row)
+{
+    auto it = lookupRow(row);
+    if (it == nullptr) return 0;
+    return it->size();
+}
+
+uint64_t
+CacheMgr::usage(const std::string &row)
+{
+    auto it = lookupRow(row);
+    if (it == nullptr) return 0;
+    return it->usage();
+}
+
 namespace
 {
 CacheMgrPtr _instance;
@@ -138,6 +154,16 @@ PayloadPtr lookup(const std::string &row, key_type key)
 {
     assert(_instance);
     return _instance->lookupKey(row, key);
+}
+uint64_t size(const std::string &row)
+{
+    assert(_instance);
+    return _instance->size(row);
+}
+uint64_t usage(const std::string &row)
+{
+    assert(_instance);
+    return _instance->usage(row);
 }
 
 } //hplru

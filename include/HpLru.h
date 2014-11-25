@@ -54,6 +54,8 @@ typedef struct PaylodTag
     uint64_t value_;
     PaylodTag(uint64_t value) : value_(value)
     { }
+    uint64_t value()
+    { return value_; }
 } Payload;
 using PayloadPtr = std::shared_ptr<Payload>;
 
@@ -73,6 +75,10 @@ class Cache
         { lru_.reset(); }
         void insert(key_type key, PayloadPtr value);
         PayloadPtr lookup(key_type key);
+        uint64_t size()
+        { return capacity_; };
+        uint64_t usage()
+        { return lru_->usage(); }
     private:
         std::string row_;
         uint64_t capacity_;
@@ -108,6 +114,8 @@ class CacheMgr
                        PayloadPtr value);
         PayloadPtr lookupKey(const std::string &row,
                              key_type key);
+        uint64_t size(const std::string &row);
+        uint64_t usage(const std::string &row);
     private:
         CacheMgr() = default;
         CachePtr lookupRow(const std::string &row);
@@ -125,4 +133,6 @@ void insertKey(const std::string &row,
                key_type key,
                uint64_t value);
 PayloadPtr lookup(const std::string &row, key_type key);
+uint64_t usage(const std::string &row);
+uint64_t size(const std::string &row);
 } // hplru
